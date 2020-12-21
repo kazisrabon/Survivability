@@ -1,0 +1,49 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Survivability:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Survivability_jar</output-path>
+    <root id="archive" name="Survivability.jar">
+      <element id="module-output" name="Survivability" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/opencsv-5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-lang3-3.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-text-1.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-beanutils-1.9.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-collections-3.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-collections4-4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/junit-4.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/log4j-1.2.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-api-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-impl-2.3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/activation-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-core-2.3.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-codec-1.13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-math3-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-compress-1.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-collections4-4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/ooxml-lib/curvesapi-1.06.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/ooxml-lib/xmlbeans-3.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/poi-4.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/poi-ooxml-4.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/poi-examples-4.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/poi-excelant-4.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/poi-scratchpad-4.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/poi-4.1.1/poi-ooxml-schemas-4.1.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="com.opencsv:opencsv:5.2" />
+      <element id="library" level="project" name="poi-4.1" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/ooxml-lib/curvesapi-1.06.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/ooxml-lib/xmlbeans-3.1.0.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/junit-4.12.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/log4j-1.2.17.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-api-2.3.1.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-impl-2.3.2.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/activation-1.1.1.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-core-2.3.0.1.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-codec-1.13.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-logging-1.2.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-math3-3.6.1.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-compress-1.19.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/poi-4.1.1/lib/commons-collections4-4.4.jar" />
+    </root>
+  </artifact>
+</component>
