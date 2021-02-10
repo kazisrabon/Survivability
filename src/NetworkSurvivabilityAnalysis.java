@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.filechooser.*;
 import javax.swing.text.NumberFormatter;
 
@@ -27,32 +28,37 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
     private final String AppName = "Network Survivability Analysis", sOPEN = "Open",
             sCLOSE = "Close", sSAVE = "Run the Analysis", sCriteria = "Criteria to Survive";
     private final String NoFileSelected = "no file selected", NoInputs = "No Inputs";
+    private final String isThereAnyPartial = "There are two default criteria:\n" +
+            "Full Survival: when demand of survived loads is fully satisfied\n" +
+            "Failure: when demand of survived loads is not satisfied\n" +
+            "Do you want to add the criterion for partial survival?\n" +
+            "A system survives partially if generated power is above or equal to the threshold";
     private Analysis2 analysis2;
     private int[] powerInput, arr;
     private int inputSize = 0, n;
+    private List<List<Integer>> clusterList;
 //    private ArrayList<Integer> powerInputsList;
-
     // a default constructor
-    NetworkSurvivabilityAnalysis() {
+private NetworkSurvivabilityAnalysis() {
         setOpenFileName("");
         setSaveFileName("");
         analysis2 = new Analysis2();
 //        powerInputsList = new ArrayList<>();
     }
 
-    public String getOpenFileName() {
+    private String getOpenFileName() {
         return openFileName;
     }
 
-    public void setOpenFileName(String openFileName) {
+    private void setOpenFileName(String openFileName) {
         this.openFileName = openFileName;
     }
 
-    public String getSaveFileName() {
+    private String getSaveFileName() {
         return saveFileName;
     }
 
-    public void setSaveFileName(String saveFileName) {
+    private void setSaveFileName(String saveFileName) {
         this.saveFileName = saveFileName;
     }
 
@@ -113,6 +119,8 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
 //        btnSave.setEnabled(false);
         btnCriteria.setVisible(false);
         btnSave.setVisible(false);
+
+//        initiate cluster list
     }
 
     public void actionPerformed(ActionEvent evt)
@@ -123,8 +131,53 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
         Component component = (Component) evt.getSource();
 
         if (com.equals(sSAVE)) {
+//            initiate cluster load list
+            clusterList = new ArrayList<>();
+//            ask user for multi-load links
+            int check = 1;
+            int result = JOptionPane.showConfirmDialog(frame,
+                    "Are there Cluster Load?",
+                    "Cluster Load",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            while(true) {
+                if (check == 2){
+                    result = JOptionPane.showConfirmDialog(frame,
+                            "More Cluster Load?",
+                            "Cluster Load",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                }
+
+                if (result == JOptionPane.YES_OPTION) {
+                    String input = JOptionPane.showInputDialog(frame,
+                            "List Links in a cluster (Example: 1,2,...)");
+                    if (input != null) {
+                        check = 2;
+                        setCluster(input);
+                        label.setText("Cluster Loads selected");
+                    }
+                    else
+                        break;
+
+                } else if (result == JOptionPane.NO_OPTION) {
+                    label.setText("You selected: No");
+                    break;
+                } else {
+                    label.setText("None selected");
+                    break;
+                }
+            }
+//            check the cluster loads
+            if (!clusterList.isEmpty()){
+                for (int i = 0; i < clusterList.size(); i++){
+                    for (int j = 0; j < clusterList.get(i).size(); j++){
+                        textArea.append("Cluster : "+i+" Load-VL : "+clusterList.get(i).get(j)+"\n");
+                    }
+                }
+            }
+
             // create an object of JFileChooser class
-//            JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
             JFileChooser j = new JFileChooser(new File(openingLocation));
 
             // restrict the user to select files of all types
@@ -194,15 +247,15 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
             // if the user selects a file
             if (r == JFileChooser.APPROVE_OPTION) {
                 setOpenFileName(j.getSelectedFile().getAbsolutePath());
-                // todo
-                //  call analysis2 done
-                //  setupInputsfromExcel() done
-                //  getGVHM(); done
-                //  getPowerInput() done
-                //  show the result in Text Area done
-                //  result: # of generator with power done
-                //          # of load with power done
-                //  if mismatch/ discrepency then ask user to open a correct file done
+
+                //  call analysis2
+                //  setupInputsfromExcel()
+                //  getGVHM();
+                //  getPowerInput()
+                //  show the result in Text Area
+                //  result: # of generator with power
+                //          # of load with power
+                //  if mismatch/ discrepancy then ask user to open a correct file
 
                 arr = analysis2.setupInputsfromExcel(getOpenFileName());
                 n = arr.length;
@@ -221,7 +274,7 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
                         textArea.append("Generator "+i1+": "+powerInput[i]+"kW\n");
                     else {
                         int loadPower = powerInput[i]*(-1);
-                        textArea.append("Load "+i1+": "+loadPower+"kW\n");
+                        textArea.append("Load-VL "+i1+": "+loadPower+"kW\n");
                     }
                 }
                 if (sum >= 0){
@@ -247,12 +300,7 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
 
         else if (com.equals(sCriteria)){
             int result = JOptionPane.showConfirmDialog(frame,
-                    "There are two default criteria:\n" +
-                            "Full Survival: when demand of survived loads is fully satisfied\n" +
-                            "Failure: when demand of survived loads is not satisfied\n" +
-                            "Do you want to add the criterion for partial survival?\n" +
-                            "A system survives partially if generated power is above or equal to the threshold"
-                            ,
+                    isThereAnyPartial,
                     "Partial Survivability",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
@@ -277,6 +325,16 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
 //            }
 //            AddPowerInputs(list);
         }
+    }
+
+    private void setCluster(String input) {
+        System.out.println("cluster called");
+        String[] convertedLoadArray = input.split(",");
+        List<Integer> convertedLoadList= new ArrayList<>();
+        for (String number : convertedLoadArray) {
+            convertedLoadList.add(Integer.parseInt(number.trim()));
+        }
+        clusterList.add(convertedLoadList);
     }
 
     private void AddPowerInputs(ArrayList<Integer> list) {
