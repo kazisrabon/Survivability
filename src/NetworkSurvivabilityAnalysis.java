@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.filechooser.*;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.NumberFormatter;
 
 class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
@@ -23,7 +24,7 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
     private final int width = 400;
     private JButton btnOpen, btnSave, btnCriteria;
     private JFrame frame;
-    private JTextArea textArea;
+    private JTextArea textArea, textArea2;
     private JPanel panelTop, panelBottom;
     private final String AppName = "Network Survivability Analysis", sOPEN = "Open",
             sCLOSE = "Close", sSAVE = "Run the Analysis", sCriteria = "Criteria to Survive";
@@ -35,7 +36,7 @@ class NetworkSurvivabilityAnalysis extends JFrame implements ActionListener {
             "A system survives partially if generated power is above or equal to the threshold";
     private Analysis2 analysis2;
     private int[] powerInput, arr;
-    private int inputSize = 0, n;
+    private int inputSize = 0, n, lowerLoad = Integer.MAX_VALUE, higherLoad = Integer.MIN_VALUE;
     private List<List<Integer>> clusterList;
 //    private ArrayList<Integer> powerInputsList;
     // a default constructor
@@ -70,8 +71,21 @@ private NetworkSurvivabilityAnalysis() {
     }
 
     private void initComponent(NetworkSurvivabilityAnalysis NetworkSurvivabilityAnalysis) {
-        // frame to contains GUI elements
+//        UIManager.put("InternalFrame.activeTitleBackground", new javax.swing.plaf.ColorUIResource(Color.BLUE));
+//        UIManager.put("InternalFrame.activeTitleForeground", new javax.swing.plaf.ColorUIResource(Color.BLUE));
+        UIDefaults uiDefaults = UIManager.getDefaults();
+        uiDefaults.put("activeCaption", new javax.swing.plaf.ColorUIResource(Color.WHITE));
+        UIManager.put("InternalFrame.titleFont", new Font("Dialog", Font.PLAIN, 17));
+        UIManager.put("Button.font", new Font("Dialog", Font.PLAIN, 15));
+        UIManager.put("TextArea.font", new Font("Dialog", Font.BOLD, 15));
+        UIManager.put("Label.font", new Font("Dialog", Font.BOLD, 15));
+        UIManager.put("OptionPane.background", new javax.swing.plaf.ColorUIResource(Color.WHITE));
+        UIManager.put("OptionPane.font", new Font("Dialog", Font.PLAIN, 17));
+//        uiDefaults.put("activeCaptionText", new javax.swing.plaf.ColorUIResource(Color.white));
+        JFrame.setDefaultLookAndFeelDecorated(true);
+    // frame to contains GUI elements
         frame = new JFrame(AppName);
+        frame.setBackground(Color.RED);
 
         // set the size of the frame
         frame.setSize(width, height);
@@ -89,6 +103,7 @@ private NetworkSurvivabilityAnalysis() {
         btnCriteria = new JButton(sCriteria);
         //text area
         textArea = new JTextArea(NoInputs);
+        textArea2 = new JTextArea(NoInputs);
         // label
         label = new JLabel(NoFileSelected);
 
@@ -108,6 +123,7 @@ private NetworkSurvivabilityAnalysis() {
         panelTop.add(btnCriteria);
         panelTop.add(label, BorderLayout.SOUTH);
         panelBottom.add(textArea);
+        panelBottom.add(textArea2);
 
         frame.add(panelTop);
         frame.add(panelBottom, BorderLayout.PAGE_END);
@@ -131,19 +147,20 @@ private NetworkSurvivabilityAnalysis() {
         Component component = (Component) evt.getSource();
 
         if (com.equals(sSAVE)) {
+            textArea2.setText("");
 //            initiate cluster load list
             clusterList = new ArrayList<>();
 //            ask user for multi-load links
             int check = 1;
             int result = JOptionPane.showConfirmDialog(frame,
-                    "Are there Cluster Load?",
+                    "Are there Cluster Loads?",
                     "Cluster Load",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
             while(true) {
                 if (check == 2){
                     result = JOptionPane.showConfirmDialog(frame,
-                            "More Cluster Load?",
+                            "More Cluster Loads?",
                             "Cluster Load",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE);
@@ -154,16 +171,27 @@ private NetworkSurvivabilityAnalysis() {
                             "List Links in a cluster (Example: 1,2,...)");
                     if (input != null) {
                         check = 2;
-                        setCluster(input);
-                        label.setText("Cluster Loads selected");
+                        int i = setCluster(input);
+                        label.setForeground(Color.BLACK);
+                        if (i == 1)
+                            label.setText("Cluster Loads selected");
+
+                        else{
+                            label.setText("Cluster inputs mismatch.\n " +
+                                    "Please provide right Load number.");
+                            label.setForeground(Color.RED);
+                        }
+
                     }
                     else
                         break;
 
-                } else if (result == JOptionPane.NO_OPTION) {
+                }
+                else if (result == JOptionPane.NO_OPTION) {
                     label.setText("You selected: No");
                     break;
-                } else {
+                }
+                else {
                     label.setText("None selected");
                     break;
                 }
@@ -172,57 +200,77 @@ private NetworkSurvivabilityAnalysis() {
             if (!clusterList.isEmpty()){
                 for (int i = 0; i < clusterList.size(); i++){
                     for (int j = 0; j < clusterList.get(i).size(); j++){
-                        textArea.append("Cluster : "+i+" Load-VL : "+clusterList.get(i).get(j)+"\n");
+                        int num = i+1;
+                        textArea2.append("Cluster : "+num+" Load-VL : "+clusterList.get(i).get(j)+"\n");
                     }
                 }
             }
 
-            // create an object of JFileChooser class
-            JFileChooser j = new JFileChooser(new File(openingLocation));
+            result = JOptionPane.showConfirmDialog(frame,
+                    "Choice the directory and give the file" +
+                            "name for the Analysis result",
+                    "Save Analysis",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE);
+//            ask user for saving
+            if (result == JOptionPane.OK_OPTION) {
+                // create an object of JFileChooser class
+                JFileChooser j = new JFileChooser(new File(openingLocation));
 
-            // restrict the user to select files of all types
-            j.setAcceptAllFileFilterUsed(false);
+                // restrict the user to select files of all types
+                j.setAcceptAllFileFilterUsed(false);
 
-            // set a title for the dialog
-            j.setDialogTitle("Give a name for output .xlsx file");
+                // set a title for the dialog
+                j.setDialogTitle("Give a name for output .xlsx file");
 
-            // only allow files of .xlsx extension
-            FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .xlsx files", "xlsx");
-            j.addChoosableFileFilter(restrict);
+                // only allow files of .xlsx extension
+                FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .xlsx files", "xlsx");
+                j.addChoosableFileFilter(restrict);
 
-            // invoke the showsSaveDialog function to show the save dialog
-            int r = j.showSaveDialog(null);
+                // invoke the showsSaveDialog function to show the save dialog
+                int r = j.showSaveDialog(null);
 
-            // if the user selects a file
-            if (r == JFileChooser.APPROVE_OPTION) {
-                setSaveFileName(j.getSelectedFile().getAbsolutePath());
-                // set the label to the path of the selected file
-                label.setText(saveFileName);
-                if (!getOpenFileName().isBlank() && !getSaveFileName().isBlank()){
-                    //todo
-                    // initAnalysis
-                    // setNgs
-                    // setAnalysis
-                    // print analysis
-                    // save Analysis
-                    analysis2.initAnalysis(n+1);
-                    analysis2.setNgs(analysis2.getNg());
-                    analysis2.setAnalysis(arr, n, powerInput);
-                    analysis2.printMatrix(analysis2.getAnalysis(),
-                            "Survivability Analysis");
-                    analysis2.saveFile(analysis2.getAnalysis(),
-                            "Analysis",
-                            saveFileName);
+                // if the user selects a file
+                if (r == JFileChooser.APPROVE_OPTION) {
+                    setSaveFileName(j.getSelectedFile().getAbsolutePath());
+                    // set the label to the path of the selected file
+                    label.setText(saveFileName);
+                    if (!getOpenFileName().isBlank() && !getSaveFileName().isBlank()){
+                        //todo
+                        // initAnalysis
+                        // setNgs
+                        // setAnalysis
+                        // print analysis
+                        // save Analysis
+                        analysis2.initAnalysis(n+1);
+                        analysis2.setNgs(analysis2.getNg());
+                        analysis2.setAnalysis(arr, n, powerInput);
+                        analysis2.printMatrix(analysis2.getAnalysis(),
+                                "Survivability Analysis");
+                        analysis2.saveFile(analysis2.getAnalysis(),
+                                "Analysis",
+                                saveFileName);
 
 
 //                    Analysis2 analysis2 = new Analysis2(openFileName, saveFileName);
+                    }
+                    else if(getOpenFileName().isBlank()) label.setText("Choose a file to analyze");
+                    else if(getSaveFileName().isBlank()) label.setText("Choose a file to save the analysis");
                 }
-                else if(getOpenFileName().isBlank()) label.setText("Choose a file to analyze");
-                else if(getSaveFileName().isBlank()) label.setText("Choose a file to save the analysis");
+                // if the user cancelled the operation
+                else
+                    label.setText("the user cancelled the operation");
             }
-            // if the user cancelled the operation
-            else
-                label.setText("the user cancelled the operation");
+//            ask user to run the another analysis or not
+            result = JOptionPane.showConfirmDialog(frame,
+                    "Do you want to run another analysis?\n" +
+                            "Click \"Open\"",
+                    "Run Another Analysis",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            if (result == JOptionPane.CANCEL_OPTION)
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
         }
 
         // open option
@@ -268,13 +316,18 @@ private NetworkSurvivabilityAnalysis() {
                     sum += pi[i];
                 }
                 textArea.setText("");
+                textArea2.setText("");
                 for (int i = 0; i < powerInput.length-1; i++) {
                     int i1 = i+1;
                     if (powerInput[i] > 0)
                         textArea.append("Generator "+i1+": "+powerInput[i]+"kW\n");
                     else {
+                        if (lowerLoad > i1)
+                            lowerLoad = i1;
+                        if (higherLoad < i1)
+                            higherLoad = i1;
                         int loadPower = powerInput[i]*(-1);
-                        textArea.append("Load-VL "+i1+": "+loadPower+"kW\n");
+                        textArea2.append("Load-VL "+i1+": "+loadPower+"kW\n");
                     }
                 }
                 if (sum >= 0){
@@ -327,14 +380,19 @@ private NetworkSurvivabilityAnalysis() {
         }
     }
 
-    private void setCluster(String input) {
+    private int setCluster(String input) {
         System.out.println("cluster called");
         String[] convertedLoadArray = input.split(",");
         List<Integer> convertedLoadList= new ArrayList<>();
         for (String number : convertedLoadArray) {
-            convertedLoadList.add(Integer.parseInt(number.trim()));
+            int i = Integer.parseInt(number.trim());
+            if (i >= lowerLoad && i <= higherLoad)
+                convertedLoadList.add(i);
+            else
+                return 0;
         }
         clusterList.add(convertedLoadList);
+        return 1;
     }
 
     private void AddPowerInputs(ArrayList<Integer> list) {
