@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Survivability" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Survivability" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
   <component name="HaskellBuildOptions">
     <ghcPath>C:\Users\kazii\AppData\Local\Programs\stack\x86_64-windows\ghc-8.6.5\bin\ghc.exe</ghcPath>
     <stackPath>C:\Users\kazii\AppData\Roaming\local\bin\stack.exe</stackPath>
