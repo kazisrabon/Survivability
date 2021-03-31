@@ -27,11 +27,10 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 todo analyze different topology:
@@ -127,7 +126,7 @@ public class Analysis2 {
         return (int) p;
     }
 
-    public void setAnalysis(int[] arr, int n, int[] criteriaValue){
+    public void setAnalysis(int[] arr, int n, int[] criteriaValue, List<List<Integer>> clusterList){
         //        loop started
 //        n is the number of components has error
         for (int r = 0; r <= n; r++) {
@@ -165,7 +164,7 @@ public class Analysis2 {
                     }
                     faultMatrix = getFaultMatrix();
 //                analyze
-                    analyzeSurvivability(faultMatrix, combination, criteriaValue);
+                    analyzeSurvivability(faultMatrix, combination, criteriaValue, clusterList);
                 }
             }
 //            calculate probabilities
@@ -186,7 +185,7 @@ public class Analysis2 {
         setNgs(getNg());
 //        set analysis
         int[] criteriaValue = {1,1,1,1,0};
-        setAnalysis(arr, n, criteriaValue);
+//        setAnalysis(arr, n, criteriaValue, clusterList);
 
         printMatrix(getAnalysis(), "Survivability Analysis");
 //        change file name or sheet name
@@ -273,13 +272,6 @@ public class Analysis2 {
                 adjMatrix[i][j] = 0;
             }
         }
-//       todo set 1, -1 and 0 for generator, load and link
-//        for (int i = 0; i < ng; i++) {
-//            adjMatrix[i][i] = 1;
-//        }
-//        for (int i = ng; i < ng+nv; i++) {
-//            adjMatrix[i][i] = -1;
-//        }
     }
 
     private int[][] getAdjMatrix() {
@@ -348,14 +340,8 @@ public class Analysis2 {
         if (index == r) {
             int[] combination = new int[r];
             for (int j=0; j<r; j++) {
-//                to print all the combination
-//                System.out.print(data[j] + " ");
                 combination[j] = data[j];
             }
-//            System.out.println();
-
-            //int [][] combinations = new int[getComb()][combination.length];
-            //combinations[count] = combination;
             setCombinations(count, combination);
             ++count;
             setCount(count);
@@ -399,10 +385,6 @@ public class Analysis2 {
         for (int i = 0; i < matrix.length ; i++) {
             row = spreadsheet.createRow(rowid++);
             int cellid = 0;
-//            for (int j = 0; j <matrix[0].length ; j++) {
-//                Cell cell = row.createCell(cellid++);
-//                cell.setCellValue(matrix[i][j]);
-//            }
             if (i == 0){
                 Object [] objectArr = empinfo.get(i+1);
                 for (int j = 0; j < matrix[0].length; j++) {
@@ -488,7 +470,7 @@ public class Analysis2 {
     }
 
     //    Warshall algorithm
-    private void analyzeSurvivability(int[][] faultMatrix, int[] combination, int[] criteriaValue) {
+    private void analyzeSurvivability(int[][] faultMatrix, int[] combination, int[] criteriaValue, List<List<Integer>> clusterList) {
         int nm = getNm();
         int[][] reach = new int[nm][nm];
         int i, j, k;
@@ -507,29 +489,32 @@ public class Analysis2 {
                 {
                     // If vertex k is on a path from i to j,
                     // then make sure that the value of reach[i][j] is 1
-                    reach[i][j] = (reach[i][j]!=0) ||
-                            ((reach[i][k]!=0) && (reach[k][j]!=0))?1:0;
+                    reach[i][j] = (reach[i][j]!=0) || ((reach[i][k]!=0) && (reach[k][j]!=0))?1:0;
                 }
             }
         }
-
-
-        // Print the shortest distance matrix
-//        printMatrix(reach, "Following matrix is transitive closure"+
-//                " of the given graph");
-//        calculate survivability
-        // size of the array: ng+nv+2
-        // second last value is for survived criteria
-        // last value is for reconfiguration critetia
-//        int[] criteriaValue = {1,1,1,1,0}; // size of the array: ng+nv+2
-        findSurvivability(reach, criteriaValue, combination);
+        findSurvivability(reach, criteriaValue, combination, clusterList);
     }
 
-    private void findSurvivability(int[][] reach, int[] criteriaValues, int[] combination) {
+    /*
+    reach represent row is reachable to column
+    criteriaValues contains power of each element and last value is reconfiguration power
+    combination contains the fault elements
+     */
+    private void findSurvivability(int[][] reach, int[] criteriaValues, int[] combination, List<List<Integer>> clusterList) {
+//        List<Integer> clusterLoads = clusterList.stream()
+//                .flatMap(Collection::stream)
+//                .collect(Collectors.<Integer>toList());
+        List<Integer> clusterLoads = new ArrayList<Integer>();
+        for (List<Integer> loads: clusterList) {
+            clusterLoads.addAll(loads);
+        }
+        int[] availableClusters = new int[clusterList.size()];
+        Arrays.fill(availableClusters, 0);
         int r = getFaultSize();
         int totalGenerator = getCountNg();
         int totalGeneratorAfterFailure = 0;
-//        int totalLoadAfterFailure = 0;
+        int totalLoadAfterFailure = 0;
         int ng = getNg();
         int nv = getNv();
         int[] countG = new int[ng];
@@ -553,37 +538,75 @@ public class Analysis2 {
         for (int i = 0; i < nv; i++) {
             countL[i] = 0;
         }
-//        calculate active generator and load
-        for (int i = ng; i < ng + nv; i++) {
-            for (int j = 0; j < ng; j++) {
-                if (reach[i][j] == 1) {
-                    if (countG[j] == 0) {
-                        countG[j] = 1;
-                        totalGeneratorAfterFailure++;
-                    }
-                    if (countL[i-ng] == 0){
-                        countL[i-ng] = 1;
+//        for (int loads = ng; loads < ng + nv; loads++) {
+//            for (int generators = 0; generators < ng; generators++) {
+//                if (reach[loads][generators] == 1
+//                && criteriaValues[loads] <= criteriaValues[generators]) {
+//                    if (countG[generators] == 0) {
+//                        countG[generators] = criteriaValues[generators];
+//                        totalGeneratorFaultPower += criteriaValues[generators];
+//                        totalGeneratorAfterFailure++;
+//                    }
+//                    if (countL[loads-ng] == 0){
+//                        countL[loads-ng] = criteriaValues[loads];
+//                        totalLoadFaultPower += criteriaValues[loads];
 //                        totalLoadAfterFailure++;
-                    }
+//                    }
+//                }
+//            }
+//        }
+
+        boolean[] isSurvivedGenerator = new boolean[ng];
+        Arrays.fill(isSurvivedGenerator, Boolean.FALSE);
+        for (int generator = 0; generator < ng ; generator++) {
+            for (int load = ng; load < ng + nv; load++) {
+                if (reach[generator][load] == 1
+                        && criteriaValues[generator] >= criteriaValues[load]
+                        && !isSurvivedGenerator[generator]){
+                    isSurvivedGenerator[generator] = true;
                 }
             }
         }
 
-//        for (int i = 0; i < ng; i++) totalGeneratorAfterFailure += countG[i];
-
-        //todo check the criteria
-        int totalPowerGenerated = 0;
-        int totalPowerAbsorbed = 0;
-        for (int i = 0; i < combination.length; i++) {
-            if (combination[i] <= getNg()) {
-                totalPowerGenerated += criteriaValues[combination[i] - 1];
-            }
-            else if (combination[i] <= getNg()+getNv()){
-                totalPowerAbsorbed += criteriaValues[combination[i] - 1];
+        boolean[] isSurvivedLoad = new boolean[nv];
+        Arrays.fill(isSurvivedLoad, Boolean.FALSE);
+        for (int load = ng; load < ng + nv; load++) {
+            for (int generator = 0; generator < ng ; generator++) {
+                if (reach[load][generator] == 1
+                        && criteriaValues[generator] >= criteriaValues[load]
+                        && !isSurvivedLoad[load-ng]){
+                    isSurvivedLoad[load-ng] = true;
+                }
             }
         }
-        int survivedGeneratorPower = generatedPower - totalPowerGenerated;
-        int survivedLoadPower = absorbedPower + totalPowerAbsorbed;
+//        calculate active generator and load
+        int survivedGeneratorPower = 0;
+        int survivedLoadPower = 0;
+
+        for (int i = 0; i < ng; i++) {
+            if (isSurvivedGenerator[i])
+                survivedGeneratorPower += criteriaValues[i];
+        }
+
+        for (int i = ng; i < ng+nv; i++) {
+            int i1 = i+1;
+//            non cluster loads
+            if (isSurvivedLoad[i-ng] && !clusterLoads.contains(i1))
+                survivedLoadPower += criteriaValues[ng];
+//            cluster loads
+            if (isSurvivedLoad[i-ng] && clusterLoads.contains(i1)){
+                for (int j = 0; j < clusterList.size(); j++) {
+                    if (clusterList.get(j).contains(i1) && availableClusters[j] == 0){
+                        availableClusters[j] = 1;
+                        survivedLoadPower += criteriaValues[ng];
+                    }
+                }
+            }
+        }
+        survivedLoadPower = -1 * survivedLoadPower;
+
+//        int survivedGeneratorPower = generatedPower - totalGeneratorFaultPower;
+//        int survivedLoadPower = absorbedPower + totalLoadFaultPower;
 
         int[] survivedLoad = new int[getNv()];
 //        when survived and reconfiguration are defined
@@ -592,7 +615,7 @@ public class Analysis2 {
 //            for (int i = 0; i < getNg(); i++) {
 //                for (int j = 0; j < combination.length; j++) {
 //                    if (i + 1 != combination[j]) {
-//                        totalPowerGenerated += criteriaValues[i];
+//                        totalGeneratorFaultPower += criteriaValues[i];
 //                    }
 //                }
 //            }
@@ -603,7 +626,7 @@ public class Analysis2 {
 //                    for (int j = 0; j < combination.length; j++) {
 //                        if (i + 1 != combination[j]) {
 //                            survivedLoad[counterLoad] = criteriaValues[i];
-//                            totalPowerAbsorbed += criteriaValues[i];
+//                            totalLoadFaultPower += criteriaValues[i];
 //                            counterLoad++;
 //                        }
 //                    }
@@ -616,10 +639,10 @@ public class Analysis2 {
 ////              when there is failure in some generator
 //                else if (totalGeneratorAfterFailure < totalGenerator){
 ////                  when total generated is greater than power absorbed
-//                    if (totalPowerGenerated >= totalPowerAbsorbed)
+//                    if (totalGeneratorFaultPower >= totalLoadFaultPower)
 //                        analysis[r][S] += 1;
 ////                  when there is no generate power
-//                    else if (totalPowerGenerated == 0)
+//                    else if (totalGeneratorFaultPower == 0)
 //                        analysis[r][F] += 1;
 ////                  when total power generated is less then total power absorbed
 //                    else {
@@ -629,7 +652,7 @@ public class Analysis2 {
 //                        boolean isReconfigurable = false;
 //                        for (int i = 0; i < survivedLoad.length; i++) {
 ////                          check if there is any load which can be satisfied by the survived generator
-//                            if (survivedLoad[i] <= totalPowerGenerated)
+//                            if (survivedLoad[i] <= totalGeneratorFaultPower)
 //                                isReconfigurable = true;
 //
 //                            if (isReconfigurable)
@@ -702,45 +725,29 @@ public class Analysis2 {
         }
         //when no criteria
         else {
-//            if (totalGeneratorAfterFailure == totalGenerator) {
-//                analysis[r][S] += 1;
-//                System.out.print("[");
-//                for (int i = 0; i < combination.length; i++) {
-//                    System.out.print(combination[i]+", ");
-//                }
-//                System.out.println("] is survived");
-//            }
-
-                //failure scenario
-            if (totalGeneratorAfterFailure == 0) {
-                analysis[r][F] += 1;
-
-//                System.out.print("[");
-//                for (int i = 0; i < combination.length; i++) {
-//                    System.out.print(combination[i]+", ");
-//                }
-//                System.out.println("] is failure");
-                System.out.println("F");
-            }
-
-            else {
+//            if ( totalGeneratorAfterFailure == ng
+//                    && totalLoadAfterFailure == nv
+////                    && survivedGeneratorPower == generatedPower
+//            && survivedGeneratorPower >= survivedLoadPower
+////                    && survivedLoadPower == absorbedPower
+//            )
+            if (survivedGeneratorPower >= survivedLoadPower && survivedGeneratorPower > 0 && survivedLoadPower > 0)
                 analysis[r][S] += 1;
 
-//                System.out.print("[");
-//                for (int i = 0; i < combination.length; i++) {
-//                    System.out.print(combination[i]+", ");
-//                }
-//                System.out.println("] is survived");
-                System.out.println("S");
-            }
-//            else {
-//                analysis[r][R] += 1;
-//                System.out.print("[");
-//                for (int i = 0; i < combination.length; i++) {
-//                    System.out.print(combination[i]+",");
-//                }
-//                System.out.println("] is reconfig");
-//            }
+            else analysis[r][F] += 1;
+
+//            if (survivedLoadPower == 0
+//                    || survivedGeneratorPower == 0
+//                    || totalGeneratorAfterFailure == 0
+//                    || totalLoadAfterFailure == 0
+//                    || survivedGeneratorPower < survivedLoadPower
+//                    || survivedGeneratorPower < generatedPower
+//                    || survivedLoadPower < absorbedPower
+//            )
+//                analysis[r][F] += 1;
+//
+//            else analysis[r][S] += 1;
+
         }
     }
 

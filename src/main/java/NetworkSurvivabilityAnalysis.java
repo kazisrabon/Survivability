@@ -371,7 +371,7 @@ private NetworkSurvivabilityAnalysis() {
                     // save Analysis
                     analysis2.initAnalysis(n+1);
                     analysis2.setNgs(analysis2.getNg());
-                    analysis2.setAnalysis(arr, n, powerInput);
+                    analysis2.setAnalysis(arr, n, powerInput, clusterList);
                     analysis2.printMatrix(analysis2.getAnalysis(),
                             "Survivability Analysis");
                     analysis2.saveFile(analysis2.getAnalysis(),

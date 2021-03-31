@@ -8,6 +8,14 @@
   <component name="ChangeListManager">
     <list default="true" id="1ceaf256-6511-4065-8b7d-2f3c4ebf3b45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ADM.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adjacency Matrix.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/power.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/powerinputs.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Analysis2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Analysis2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Combination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Combination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NetworkSurvivabilityAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NetworkSurvivabilityAnalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/withpower.csv" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -17,48 +25,71 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="Survivability" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/NetworkSurvivabilityAnalysis.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="162" column="51" lean-forward="true" selection-start-line="162" selection-start-column="51" selection-end-line="162" selection-end-column="51" />
+            <state relative-caret-position="321">
+              <caret line="373" selection-start-line="373" selection-end-line="373" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2196#2197#0" expanded="true" />
+                <element signature="e#2231#2232#0" expanded="true" />
+                <element signature="e#2288#2289#0" expanded="true" />
+                <element signature="e#2336#2337#0" expanded="true" />
+                <element signature="e#2468#2469#0" expanded="true" />
+                <element signature="e#2516#2517#0" expanded="true" />
                 <element signature="e#9574#9588#0" />
-                <element signature="e#9692#13136#1" />
                 <element signature="e#13177#14156#1" />
-                <element signature="e#17859#18656#0" />
-                <element signature="e#18662#24243#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Analysis2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11286">
-              <caret line="580" column="56" selection-start-line="580" selection-start-column="56" selection-end-line="580" selection-end-column="56" />
+            <state relative-caret-position="285">
+              <caret line="733" selection-start-line="733" selection-end-line="733" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1948#1949#0" expanded="true" />
                 <element signature="e#1981#1982#0" expanded="true" />
-                <element signature="e#19005#19060#0" />
+                <element signature="e#16207#16216#0" expanded="true" />
+                <element signature="e#17022#17080#0" />
+                <element signature="e#17845#17900#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Combination.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+            <state relative-caret-position="435">
+              <caret line="65" column="54" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3035#3050#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -94,6 +125,9 @@
       <find>misma</find>
       <find>choice</find>
       <find>label.setText</find>
+      <find>totalLoadAfterFailure</find>
+      <find>file</find>
+      <find>reach</find>
     </findStrings>
     <replaceStrings>
       <replace>total</replace>
@@ -126,6 +160,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/NetworkSurvivabilityAnalysis.java" />
         <option value="$PROJECT_DIR$/src/main/java/Analysis2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Combination.java" />
       </list>
     </option>
   </component>
@@ -137,10 +172,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-11" />
-    <option name="y" value="-11" />
-    <option name="width" value="1943" />
-    <option name="height" value="1103" />
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="1186" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -148,6 +183,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="Survivability" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -173,23 +219,25 @@
             </path>
             <path>
               <item name="Survivability" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Survivability" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Survivability" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Survivability" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Survivability" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
               <item name="Survivability" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="poi-ooxml-4.1.1.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="Survivability" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -204,7 +252,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1616553620472" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1617177358274" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -357,7 +405,9 @@
       <workItem from="1614845233870" duration="1294000" />
       <workItem from="1614891928818" duration="146000" />
       <workItem from="1615407781224" duration="805000" />
-      <workItem from="1616532027134" duration="639000" />
+      <workItem from="1616532027134" duration="12112000" />
+      <workItem from="1616897734201" duration="650000" />
+      <workItem from="1617048610911" duration="16160000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1607979022767</created>
@@ -394,23 +444,38 @@
       <option name="project" value="LOCAL" />
       <updated>1614237036323</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="duplicate load terminated,clear text areas and language version changed and maven added">
+      <created>1616553619182</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1616553619182</updated>
+    </task>
+    <task id="LOCAL-00007" summary="duplicate load terminated,clear text areas and language version changed and maven added">
+      <created>1616553677153</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1616553677153</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="265901000" />
+    <option name="totallyTimeSpent" value="294184000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+    <frame x="1912" y="-8" width="1616" height="1186" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.61974406" visible="true" weight="0.25545675" />
-      <window_info id="Structure" order="1" sideWeight="0.38025594" side_tool="true" visible="true" weight="0.25545675" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6175637" visible="true" weight="0.16580977" />
+      <window_info id="Structure" order="1" sideWeight="0.38243628" side_tool="true" visible="true" weight="0.16580977" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info anchor="bottom" id="Duplicate detector" order="0" weight="0.61608773" />
-      <window_info anchor="bottom" id="Messages" order="1" weight="0.3235832" />
+      <window_info anchor="bottom" id="Messages" order="1" weight="0.32132426" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.32723948" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -419,11 +484,11 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.497979" weight="0.6489945" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.51371115" weight="0.91956127" />
+      <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.51371115" weight="0.48977605" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6443007" weight="0.6727605" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.502021" side_tool="true" weight="0.6727605" />
       <window_info anchor="bottom" id="Favorites" order="13" weight="0.32867134" />
-      <window_info anchor="bottom" id="Run" order="14" sideWeight="0.5173675" weight="0.5978062" />
+      <window_info active="true" anchor="bottom" id="Run" order="14" sideWeight="0.5173675" visible="true" weight="0.31256086" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -537,19 +602,13 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>198</line>
+          <line>197</line>
           <properties />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>181</line>
-          <properties />
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>485</line>
+          <line>467</line>
           <properties />
           <option name="timeStamp" value="21" />
         </line-breakpoint>
@@ -578,54 +637,46 @@
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>663</line>
-          <properties />
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>575</line>
-          <properties />
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>378</line>
-          <properties />
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>357</line>
-          <properties />
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>137</line>
-          <properties />
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/NetworkSurvivabilityAnalysis.java</url>
           <line>373</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
-          <line>334</line>
-          <properties class="Analysis2" method="factorial">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="43" />
+          <line>540</line>
+          <properties />
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="combination.length &gt;= 2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
+          <line>733</line>
+          <properties />
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="combination.length &gt;= 2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/Analysis2.java</url>
+          <line>736</line>
+          <properties />
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>combination.length &gt;= 2</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>combination.size() &gt;= 2;</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>i == 1</expression-string>
         <language-id>JAVA</language-id>
@@ -718,13 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Combination.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/JavaApplicationPath.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -756,38 +800,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-15.0.2/lib/src.zip!/java.base/java/util/function/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/NetworkSurvivabilityAnalysis.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="162" column="51" lean-forward="true" selection-start-line="162" selection-start-column="51" selection-end-line="162" selection-end-column="51" />
+        <state relative-caret-position="321">
+          <caret line="373" selection-start-line="373" selection-end-line="373" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2196#2197#0" expanded="true" />
+            <element signature="e#2231#2232#0" expanded="true" />
+            <element signature="e#2288#2289#0" expanded="true" />
+            <element signature="e#2336#2337#0" expanded="true" />
+            <element signature="e#2468#2469#0" expanded="true" />
+            <element signature="e#2516#2517#0" expanded="true" />
             <element signature="e#9574#9588#0" />
-            <element signature="e#9692#13136#1" />
             <element signature="e#13177#14156#1" />
-            <element signature="e#17859#18656#0" />
-            <element signature="e#18662#24243#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Combination.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="65" column="54" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3035#3050#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Analysis2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11286">
-          <caret line="580" column="56" selection-start-line="580" selection-start-column="56" selection-end-line="580" selection-end-column="56" />
+        <state relative-caret-position="285">
+          <caret line="733" selection-start-line="733" selection-end-line="733" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1948#1949#0" expanded="true" />
             <element signature="e#1981#1982#0" expanded="true" />
-            <element signature="e#19005#19060#0" />
+            <element signature="e#16207#16216#0" expanded="true" />
+            <element signature="e#17022#17080#0" />
+            <element signature="e#17845#17900#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
         </state>
       </provider>
     </entry>
